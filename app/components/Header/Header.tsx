@@ -1,13 +1,12 @@
 "use client";
-import { useState } from 'react';
-import { Container, Group, Burger } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { IconSun } from '@tabler/icons-react';
-import classes from './Header.module.css';
+import { useState } from "react";
+import { Group } from "@mantine/core";
+import { IconSun } from "@tabler/icons-react";
+import classes from "./Header.module.css";
 
 const links = [
-  { link: '/form', label: 'Form' },
-  { link: '/items', label: 'Items' },
+  { link: "/form", label: "Form" },
+  { link: "/items", label: "Items" },
 ];
 
 export function Header() {
@@ -19,8 +18,7 @@ export function Header() {
       href={link.link}
       className={classes.link}
       data-active={active === link.link || undefined}
-      onClick={(event) => {
-        event.preventDefault();
+      onClick={() => {
         setActive(link.link);
       }}
     >
@@ -30,16 +28,21 @@ export function Header() {
 
   return (
     <header className={classes.header}>
-      <Container size="md" className={classes.inner}>
-        <Group gap={5} visibleFrom="xs">
-          {items}
-        </Group>
-        <Group>
-          <IconSun onClick={()=>console.log("Click")}>
-
-          </IconSun>
-        </Group>
-      </Container>
+      <Group className={classes.lftHeader} gap={5} visibleFrom="xs">
+        {items}
+      </Group>
+      <Group
+        justify="flex-end"
+        className={classes.rtHeader}
+        gap={5}
+        visibleFrom="xs"
+      >
+        <IconSun
+          onClick={() => {
+            console.log("Click");
+          }}
+        ></IconSun>
+      </Group>
     </header>
   );
 }
