@@ -1,7 +1,13 @@
 "use client";
 import { useState } from "react";
-import { Group } from "@mantine/core";
-import { IconSun } from "@tabler/icons-react";
+import {
+  Group,
+  ActionIcon,
+  useMantineColorScheme,
+  useComputedColorScheme,
+} from "@mantine/core";
+import { IconSun, IconMoon } from "@tabler/icons-react";
+import cx from "clsx";
 import classes from "./Header.module.css";
 
 const links = [
@@ -11,6 +17,11 @@ const links = [
 
 export function Header() {
   const [active, setActive] = useState(links[0].link);
+
+  const { setColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme("light", {
+    getInitialValueInEffect: true,
+  });
 
   const items = links.map((link) => (
     <a
@@ -37,11 +48,17 @@ export function Header() {
         gap={5}
         visibleFrom="xs"
       >
-        <IconSun
-          onClick={() => {
-            console.log("Click");
-          }}
-        ></IconSun>
+        <ActionIcon
+          onClick={() =>
+            setColorScheme(computedColorScheme === "light" ? "dark" : "light")
+          }
+          variant="default"
+          size="xl"
+          aria-label="Toggle color scheme"
+        >
+          <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
+          <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
+        </ActionIcon>
       </Group>
     </header>
   );

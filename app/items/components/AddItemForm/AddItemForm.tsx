@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
 import { useForm } from "@mantine/form";
 import { TextInput, Box, Group, Button } from "@mantine/core";
+import classes from "./AddItemForm.module.css";
 
 export function AddItemForm() {
   const form = useForm({
@@ -13,7 +13,7 @@ export function AddItemForm() {
   });
 
   return (
-    <Box maw={500} mx="auto">
+    <Box className={classes.addItemForm} mx="auto">
       <form onSubmit={form.onSubmit((values) => console.log(values))}>
         <TextInput
           withAsterisk
@@ -28,7 +28,7 @@ export function AddItemForm() {
           label="Item Asset Tag"
           {...form.getInputProps("itemAssetTag")}
         />
-        <Group justify="flex-end" mt="md">
+        <Group justify="center" mt="md">
           <Button type="submit">Submit</Button>
         </Group>
       </form>
