@@ -1,6 +1,6 @@
 "use client";
 import { useForm } from "@mantine/form";
-import { TextInput, Box, Group, Button } from "@mantine/core";
+import { TextInput, Box, Group, Button, Select } from "@mantine/core";
 import classes from "./AddItemForm.module.css";
 
 export function AddItemForm() {
@@ -27,6 +27,19 @@ export function AddItemForm() {
         <TextInput
           label="Item Asset Tag"
           {...form.getInputProps("itemAssetTag")}
+        />
+        <Select
+          label="Category"
+          placeholder="Pick category"
+          data={[
+            "Desktop",
+            "Laptop",
+            "Server",
+            "Networking Equipment",
+            "UPS",
+            "Component",
+            "Other",
+          ]}
         />
         <Group justify="center" mt="md">
           <Button type="submit">Submit</Button>
