@@ -5,10 +5,14 @@ import {
   AccordionControl,
   AccordionPanel,
 } from "@mantine/core";
+import { IconDevices2 } from "@tabler/icons-react";
 import classes from "./ListItems.module.css";
+import accordianCSS from "./Accordion.module.css";
 
 async function getData() {
-  const res = await fetch("http://localhost:3000/api/get-items");
+  const res = await fetch("http://localhost:3000/api/get-items", {
+    cache: "no-cache",
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -17,41 +21,28 @@ async function getData() {
   return res.json();
 }
 
-const itemsList = [
-  {
-    emoji: "💻",
-    value: "Dell Inc. Latitude 3540",
-    description:
-      "Crisp and refreshing fruit. Apples are known for their versatility and nutritional benefits. They come in a variety of flavors and are great for snacking, baking, or adding to salads.",
-  },
-  {
-    emoji: "💻",
-    value: "Dell Inc. Inspiron 3671",
-    description:
-      "Naturally sweet and potassium-rich fruit. Bananas are a popular choice for their energy-boosting properties and can be enjoyed as a quick snack, added to smoothies, or used in baking.",
-  },
-  {
-    emoji: "💻",
-    value: "Dell Inc. Latitude 5530",
-    description:
-      "Nutrient-packed green vegetable. Broccoli is packed with vitamins, minerals, and fiber. It has a distinct flavor and can be enjoyed steamed, roasted, or added to stir-fries.",
-  },
-];
-
 export async function ListItems() {
   const data = await getData();
-  console.log(data);
+  console.log(data.response);
 
-  const items = itemsList.map((item) => (
-    <AccordionItem key={item.value} value={item.value}>
-      <AccordionControl icon={item.emoji}>{item.value}</AccordionControl>
-      <AccordionPanel>{item.description}</AccordionPanel>
+  const items = data.response.map((item: any) => (
+    <AccordionItem key={item.itemName} value={item.itemName}>
+      <AccordionControl icon={<IconDevices2></IconDevices2>}>{item.itemName}</AccordionControl>
+      <AccordionPanel>
+        Serial Number: {item.itemSN}
+        <br />
+        Asset Tag: {item.itemAssetTag}
+        <br />
+        Category: {item.itemCategory}
+      </AccordionPanel>
     </AccordionItem>
   ));
 
   return (
-    <Box className={classes.listItems}>
-      <Accordion variant="contained">{items}</Accordion>
+    <Box className={classes.listItems} mx="auto">
+      <Accordion classNames={accordianCSS} variant="seperate" radius="xl">
+        {items}
+      </Accordion>
     </Box>
   );
 }

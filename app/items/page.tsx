@@ -4,9 +4,9 @@ import { Group } from "@mantine/core";
 
 export default function ItemsPage() {
   return (
-    <Group>
+    <div>
       <AddItemForm />
       <ListItems />
-    </Group>
+    </div>
   );
 }
