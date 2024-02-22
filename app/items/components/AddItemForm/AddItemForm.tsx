@@ -9,12 +9,34 @@ export function AddItemForm() {
       itemName: "",
       itemSN: "",
       itemAssetTag: "",
+      itemCategory: "",
     },
   });
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/db", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ form }),
+      });
+      if (response.ok) {
+        console.log("Successfully added item");
+      } else {
+        console.error("Did not add item");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Box className={classes.addItemForm} mx="auto">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={handleSubmit}>
         <TextInput
           withAsterisk
           label="Item Name"
@@ -30,6 +52,7 @@ export function AddItemForm() {
         />
         <Select
           label="Category"
+          {...form.getInputProps("itemCategory")}
           placeholder="Pick category"
           data={[
             "Desktop",
@@ -42,7 +65,7 @@ export function AddItemForm() {
           ]}
         />
         <Group justify="center" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Add Item</Button>
         </Group>
       </form>
     </Box>
