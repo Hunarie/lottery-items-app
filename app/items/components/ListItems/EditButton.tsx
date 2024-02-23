@@ -47,7 +47,7 @@ export function EditButton({ data }: any) {
                         <TextInput label="Item Name" defaultValue={form.values.itemName} {...form.getInputProps("itemName")} />
                         <TextInput label="Serial Number" defaultValue={data.itemSN} {...form.getInputProps("itemSN")} />
                         <TextInput label="Asset Tag" defaultValue={data.itemAssetTag} {...form.getInputProps("itemAssetTag")} />
-                        <Select label="Category" data={["Desktop", "Laptop", "Server", "Networking Equipment", "UPS", "Component", "Other"]} defaultValue={form.values.itemCategory} {...form.getInputProps("itemCategory")} />
+                        <Select className={classes.btn} label="Category" data={["Desktop", "Laptop", "Server", "Networking Equipment", "UPS", "Component", "Other"]} defaultValue={form.values.itemCategory} {...form.getInputProps("itemCategory")} />
                         <Button type="submit" variant="light" size="xs" color="gray">Submit</Button>
                     </form>
                 </Popover.Dropdown>
