@@ -17,7 +17,7 @@ export function AddItemForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/db", {
+      const response = await fetch("/api/create-item", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export function AddItemForm() {
           ]}
         />
         <Group justify="center" mt="md">
-          <Button type="submit">Add Item</Button>
+          <Button type="submit" color="gray">Add Item</Button>
         </Group>
       </form>
     </Box>

@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import {
   Group,
   ActionIcon,
@@ -16,7 +15,6 @@ const links = [
 ];
 
 export function Header() {
-  const [active, setActive] = useState(links[0].link);
 
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
@@ -28,10 +26,6 @@ export function Header() {
       key={link.label}
       href={link.link}
       className={classes.link}
-      data-active={active === link.link || undefined}
-      onClick={() => {
-        setActive(link.link);
-      }}
     >
       {link.label}
     </a>

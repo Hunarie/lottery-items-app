@@ -8,6 +8,8 @@ import {
 import { IconDevices2 } from "@tabler/icons-react";
 import classes from "./ListItems.module.css";
 import accordianCSS from "./Accordion.module.css";
+import { DeleteButton } from "./DeleteButton";
+import { EditButton } from "./EditButton";
 
 async function getData() {
   const res = await fetch("http://localhost:3000/api/get-items", {
@@ -34,6 +36,8 @@ export async function ListItems() {
         Asset Tag: {item.itemAssetTag}
         <br />
         Category: {item.itemCategory}
+        <DeleteButton data={item.itemSN} />
+        <EditButton data={item}/>
       </AccordionPanel>
     </AccordionItem>
   ));
