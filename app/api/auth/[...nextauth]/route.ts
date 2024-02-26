@@ -1,7 +1,10 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import AzureADProvider from "next-auth/providers/azure-ad";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import clientPromise from "../../../../lib/mongodbtemp";
+import { Adapter } from "next-auth/adapters";
 
-export const authOptions = {
+const authOptions = {
     // Configure one or more auth providers
     providers: [
         AzureADProvider({
@@ -10,13 +13,8 @@ export const authOptions = {
           tenantId: process.env.AZURE_AD_TENANT_ID,
         }),
     ],
+    adapter: MongoDBAdapter(clientPromise) as Adapter,
     callbacks: {
-      async jwt({ token, account }: any) {
-        if (account) {
-          token.accessToken = account.access_token
-        }
-        return token
-      },
       async session({ session, token }: any) {
         session.user.accessToken = token.accessToken
         return session

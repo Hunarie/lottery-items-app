@@ -10,24 +10,13 @@ import classes from "./ListItems.module.css";
 import accordianCSS from "./Accordion.module.css";
 import { DeleteButton } from "./DeleteButton";
 import { EditButton } from "./EditButton";
-
-async function getData() {
-  const res = await fetch("http://localhost:3000/api/get-items", {
-    cache: "no-cache",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
+import GET from "../../../api/get-items/route"
 
 export async function ListItems() {
-  const data = await getData();
-  console.log(data.response);
+  const data = await GET()
+  console.log(data);
 
-  const items = data.response.map((item: any) => (
+  const items = data.map((item: any) => (
     <AccordionItem key={item.itemName} value={item.itemName}>
       <AccordionControl icon={<IconDevices2></IconDevices2>}>{item.itemName}</AccordionControl>
       <AccordionPanel>
