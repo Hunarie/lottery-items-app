@@ -8,6 +8,8 @@ import {
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "./Header.module.css";
+import { Avatar } from "@mantine/core";
+import { signIn } from "next-auth/react";
 
 const links = [
   { link: "/form", label: "Form" },
@@ -53,6 +55,7 @@ export function Header() {
           <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
           <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
         </ActionIcon>
+        <Avatar src={null} alt="Sign In" onClick={() => signIn("azure-ad")}/>
       </Group>
     </header>
   );
