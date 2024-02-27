@@ -8,14 +8,17 @@ export async function POST(request: Request) {
 
   const collection = await connectToDatabase();
   await collection.updateOne(
-    { 
-        itemSN: currentValuesArray[1][1] 
+    {
+      itemSN: currentValuesArray[1][1],
     },
-    { $set:{
-        itemName:currentValuesArray[0][1],
-        itemSN:currentValuesArray[1][1],
+    {
+      $set: {
+        itemName: currentValuesArray[0][1],
+        itemSN: currentValuesArray[1][1],
         itemAssetTag: currentValuesArray[2][1],
-        itemCategory: currentValuesArray[3][1]
-    }})
+        itemCategory: currentValuesArray[3][1],
+      },
+    },
+  );
   return NextResponse.json({ response: "Item edited in DB" });
 }

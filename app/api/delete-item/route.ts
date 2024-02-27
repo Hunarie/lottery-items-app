@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   console.log(itemSN.data);
 
   const collection = await connectToDatabase();
-  await collection.deleteOne({ itemSN : itemSN.data })
+  await collection.deleteOne({ itemSN: itemSN.data });
 
   return NextResponse.json({ response: "Item removed from DB" });
 }

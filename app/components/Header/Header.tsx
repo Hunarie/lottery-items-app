@@ -8,8 +8,7 @@ import {
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "./Header.module.css";
-import { Avatar } from "@mantine/core";
-import { SessionProvider, signIn } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import MSProfilePicture from "./MSProfilePicture";
 
 const links = [
@@ -18,18 +17,13 @@ const links = [
 ];
 
 export function Header() {
-
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
 
   const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-    >
+    <a key={link.label} href={link.link} className={classes.link}>
       {link.label}
     </a>
   ));

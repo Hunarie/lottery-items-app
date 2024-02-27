@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession } from "next-auth"
+import NextAuth, { DefaultSession } from "next-auth";
 
 declare module "next-auth" {
   /**
@@ -7,6 +7,6 @@ declare module "next-auth" {
   export interface Session {
     user: {
       accessToken?: accessToken;
-    } & DefaultSession["user"]
+    } & DefaultSession["user"];
   }
 }

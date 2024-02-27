@@ -10,15 +10,17 @@ import classes from "./ListItems.module.css";
 import accordianCSS from "./Accordion.module.css";
 import { DeleteButton } from "./DeleteButton";
 import { EditButton } from "./EditButton";
-import GET from "../../../api/get-items/route"
+import GET from "../../../api/get-items/route";
 
 export async function ListItems() {
-  const data = await GET()
+  const data = await GET();
   console.log(data);
 
   const items = data.map((item: any) => (
     <AccordionItem key={item.itemName} value={item.itemName}>
-      <AccordionControl icon={<IconDevices2></IconDevices2>}>{item.itemName}</AccordionControl>
+      <AccordionControl icon={<IconDevices2></IconDevices2>}>
+        {item.itemName}
+      </AccordionControl>
       <AccordionPanel>
         Serial Number: {item.itemSN}
         <br />
@@ -26,7 +28,7 @@ export async function ListItems() {
         <br />
         Category: {item.itemCategory}
         <DeleteButton data={item.itemSN} />
-        <EditButton data={item}/>
+        <EditButton data={item} />
       </AccordionPanel>
     </AccordionItem>
   ));

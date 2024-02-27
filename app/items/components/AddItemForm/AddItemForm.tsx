@@ -65,7 +65,9 @@ export function AddItemForm() {
           ]}
         />
         <Group justify="center" mt="md">
-          <Button type="submit" color="gray">Add Item</Button>
+          <Button type="submit" color="gray">
+            Add Item
+          </Button>
         </Group>
       </form>
     </Box>
