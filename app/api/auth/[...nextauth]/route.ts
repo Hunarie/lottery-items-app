@@ -6,19 +6,23 @@ import { Adapter } from "next-auth/adapters";
 import { connectToDB } from "../../../lib/connectDB";
 import { ObjectId } from "mongodb";
 
-// Need tenant enviroment variable
-const MICROSOFT_AUTHORIZATION_URL =
-  "https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize?" +
-  new URLSearchParams({
-    prompt: "consent",
-    access_type: "offline",
-    response_type: "code",
-  });
+async function refreshAccessToken(accessToken : any, userId: any) {
+  const account = await connectToDB();
+  const userIDAsObject = new ObjectId(userId);
+  const data = await account.findOne({ userId: userIDAsObject });
 
-async function refreshAccessToken(refreshToken: any, accessToken : any) {
+  if(data?.expires_at) {
+    if ((Date.now() / 1000) < data?.expires_at) {
+      console.log("Session not expired")
+      return;
+    }
+  }
+
+  const refreshToken = data?.refresh_token
+
   try {
     const url = "https://login.microsoftonline.com/835c9297-ee27-4b71-9146-faba6bf5e2b7/oauth2/v2.0/token"
-    const req = await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -29,9 +33,16 @@ async function refreshAccessToken(refreshToken: any, accessToken : any) {
       + `&client_id=${process.env.AZURE_AD_CLIENT_ID}` 
     })
 
-    const refreshedTokens = await req.json();
-    return refreshedTokens
+    const refreshedTokens = await response.json();
     
+    await account.updateOne(
+      {userId: userIDAsObject},
+      {$set:{ 
+        refresh_token: refreshedTokens.refresh_token,
+        access_token: refreshedTokens.access_token,
+        expires_at: (Date.now() / 1000) + 3600,
+       }}
+    )
   } catch (error) {
     console.log(error)
 
@@ -47,7 +58,7 @@ export const providerConfig = {
 }
 export const authOptions = {
   // Configure one or more auth providers
-  adapter: MongoDBAdapter(clientPromise) as Adapter,
+  adapter: MongoDBAdapter(clientPromise, {databaseName: "AuthDB"}) as Adapter,
   providers: [
     AzureADProvider({
       clientId: process.env.AZURE_AD_CLIENT_ID!,
@@ -64,28 +75,24 @@ export const authOptions = {
     async session({ session, user }: any) {
       const account = await connectToDB();
       const userIDAsObject = new ObjectId(user.id);
+      const oldOrCurrentData = await account.findOne({ userId: userIDAsObject });
+
+      await refreshAccessToken(oldOrCurrentData?.access_token, user.id)
+
       const data = await account.findOne({ userId: userIDAsObject });
 
-      let accessToken;
-      if (data) {
-        accessToken = data.access_token;
-      }
 
       if (session) {
         session.user._id = user.id;
-        session.user.accessToken = accessToken;
-      }
-      console.log(Date.now() / 1000 )
-      console.log(data?.expires_at)
-      if (Date.now() / 1000 < data?.expires_at) {
-        console.log("Session not expired")
-        return session
+        session.user.accessToken = data?.access_token;
       }
 
+      console.log(Date.now() / 1000 )
+      console.log(data?.expires_at)
       console.log(data?.refresh_token)
       console.log(data?.access_token)
 
-      return refreshAccessToken(data?.refresh_token, data?.access_token)
+      return session
     },
   },
 };
