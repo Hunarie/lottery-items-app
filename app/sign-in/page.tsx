@@ -1,7 +1,16 @@
 "use client";
 
-import { useSession, getSession, SessionProvider } from "next-auth/react";
+import { useSession, getSession, SessionProvider, signIn } from "next-auth/react";
 export default function SignInPage() {
   const { data: session, status } = useSession();
-  return <div>Test</div>;
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if ( status === "unauthenticated") {
+    signIn("azure-ad")
+  }
+  
+  return <div>User is logged in as {session?.user.email}</div>;
 }
