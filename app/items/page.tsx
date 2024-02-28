@@ -1,5 +1,5 @@
-import { AddItemForm } from "./components/AddItemForm/AddItemForm";
-import { ListItems } from "./components/ListItems/ListItems";
+import { AddItemForm } from "../components/AddItemForm/AddItemForm";
+import { ListItems } from "../components/ListItems/ListItems";
 
 export default function ItemsPage() {
   return (

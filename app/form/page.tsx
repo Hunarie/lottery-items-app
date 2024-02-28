@@ -1,4 +1,4 @@
-import { ListItems } from "../items/components/ListItems/ListItems";
+import { ListItems } from "../components/ListItems/ListItems";
 
 export default function ItemsPage() {
   return (

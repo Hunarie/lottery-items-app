@@ -10,7 +10,7 @@ import classes from "./ListItems.module.css";
 import accordianCSS from "./Accordion.module.css";
 import { DeleteButton } from "./DeleteButton";
 import { EditButton } from "./EditButton";
-import GET from "../../../api/get-items/route";
+import GET from "../../api/get-items/route";
 
 export async function ListItems() {
   const data = await GET();

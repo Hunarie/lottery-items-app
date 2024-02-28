@@ -3,6 +3,7 @@ import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
 import { Header } from "./components/Header/Header";
+import { NextAuthProvider } from "./provider";
 
 export const metadata = {
   title: "Lottery Items",
@@ -21,10 +22,12 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="dark" theme={theme}>
-          <Header />
-          {children}
-        </MantineProvider>
+        <NextAuthProvider>
+          <MantineProvider defaultColorScheme="dark" theme={theme}>
+            <Header />
+            {children}
+          </MantineProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );
