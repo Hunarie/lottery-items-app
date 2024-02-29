@@ -10,6 +10,7 @@ import cx from "clsx";
 import classes from "./Header.module.css";
 import { SessionProvider } from "next-auth/react";
 import MSProfilePicture from "./MSProfilePicture";
+import { usePathname } from "next/navigation";
 
 const links = [
   { link: "/form", label: "Form" },
@@ -28,32 +29,35 @@ export function Header() {
     </a>
   ));
 
-  return (
-    <header className={classes.header}>
-      <Group className={classes.lftHeader} gap={5} visibleFrom="xs">
-        {items}
-      </Group>
-      <Group
-        justify="flex-end"
-        className={classes.rtHeader}
-        gap={5}
-        visibleFrom="xs"
-      >
-        <ActionIcon
-          onClick={() =>
-            setColorScheme(computedColorScheme === "light" ? "dark" : "light")
-          }
-          variant="default"
-          size="xl"
-          aria-label="Toggle color scheme"
+  const pathName = usePathname();
+  if (pathName != "/sign-in") {
+    return (
+      <header className={classes.header}>
+        <Group className={classes.lftHeader} gap={5} visibleFrom="xs">
+          {items}
+        </Group>
+        <Group
+          justify="flex-end"
+          className={classes.rtHeader}
+          gap={5}
+          visibleFrom="xs"
         >
-          <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
-          <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
-        </ActionIcon>
-        <SessionProvider>
-          <MSProfilePicture />
-        </SessionProvider>
-      </Group>
-    </header>
-  );
+          <ActionIcon
+            onClick={() =>
+              setColorScheme(computedColorScheme === "light" ? "dark" : "light")
+            }
+            variant="default"
+            size="xl"
+            aria-label="Toggle color scheme"
+          >
+            <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
+            <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
+          </ActionIcon>
+          <SessionProvider>
+            <MSProfilePicture />
+          </SessionProvider>
+        </Group>
+      </header>
+    );  
+  }
 }

@@ -1,3 +1,4 @@
+"use client";
 import {
     Paper,
     Button,
@@ -7,6 +8,7 @@ import {
   } from '@mantine/core';
 import classes from './SignInPage.module.css';
 import { IconBrandAzure } from '@tabler/icons-react';
+import { signIn } from 'next-auth/react';
 
   export function SignInPage() {
     return (
@@ -20,7 +22,7 @@ import { IconBrandAzure } from '@tabler/icons-react';
                 Login with
             </Text>
           </Center>
-          <Button fullWidth color='gray'>
+          <Button fullWidth color='gray' onClick={() => signIn("azure-ad")}>
             <IconBrandAzure />
             Microsoft
           </Button>

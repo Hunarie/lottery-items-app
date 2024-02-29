@@ -9,7 +9,7 @@ export default async function ItemsPage() {
 
   if (!session) {
     return (
-      redirect('/api/auth/signin')
+      redirect('sign-in')
     )
   }
 
