@@ -1,0 +1,25 @@
+.box1 {
+  border: none;
+  border-radius: 2pt;
+  box-shadow: 0 0 0 1pt rgb(61, 61, 61);
+  outline-color: transparent;
+  margin-left: rem(30);
+  margin-right: rem(2.5);
+  margin-top: rem(10);
+  padding-left: rem(10);
+  padding-right: rem(10);
+  padding-bottom: rem(10);
+}
+
+.box2 {
+    border: none;
+    border-radius: 2pt;
+    box-shadow: 0 0 0 1pt rgb(61, 61, 61);
+    outline-color: transparent;
+    margin-left: rem(2.5);
+    margin-right: rem(30);
+    margin-top: rem(10);
+    padding-left: rem(10);
+    padding-right: rem(10);
+    padding-bottom: rem(10);
+}
