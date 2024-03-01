@@ -58,6 +58,6 @@ export function Header() {
           </SessionProvider>
         </Group>
       </header>
-    );  
+    );
   }
 }
