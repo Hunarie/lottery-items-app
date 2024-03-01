@@ -17,6 +17,7 @@ import { useState } from "react";
 import { IconDevices2 } from "@tabler/icons-react";
 import accordionCSS from "./Accordion.module.css";
 import classes from "./CreateForm.module.css";
+import { ListItems } from "../ListItems/ListItems";
 
 export default function CreateForm() {
   const form = useForm({

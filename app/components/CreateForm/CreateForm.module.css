@@ -1,6 +1,6 @@
 .box1 {
   border: none;
-  border-radius: 2pt;
+  border-radius: 4pt;
   box-shadow: 0 0 0 1pt rgb(61, 61, 61);
   outline-color: transparent;
   margin-left: rem(30);
@@ -13,7 +13,7 @@
 
 .box2 {
     border: none;
-    border-radius: 2pt;
+    border-radius: 4pt;
     box-shadow: 0 0 0 1pt rgb(61, 61, 61);
     outline-color: transparent;
     margin-left: rem(2.5);
